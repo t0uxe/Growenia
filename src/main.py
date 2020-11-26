@@ -21,7 +21,7 @@ from gi.repository import Gtk, Gio
 
 import datetime
 import src.db.tablas
-from src.db.tablas import Huerto, Planta, Mantenimiento
+from src.db.tablas import Huerto, Planta
 import sys
 
 
