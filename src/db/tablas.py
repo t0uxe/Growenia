@@ -21,16 +21,13 @@ session = Session()
 Base = declarative_base()
 
 
-class Mantenimiento(Base):
+""" class Mantenimiento(Base):
     __tablename__ = "Mantenimiento"
 
     id_mantenimiento = Column(Integer, primary_key=True)
     nombre = Column(String(80), nullable=False)
     descripcion = Column(String(500))
     fecha_mantenimiento = Column(Date, nullable=False)
-    
-    #planta_id = Column(Integer, ForeignKey('Planta.id'), nullable=False)
-    #planta = relationship('Planta', backref=backref('mantenimientos', cascade="all, delete-orphan"))
 
     def add_mantenimiento(self):
         session.add(self)
@@ -45,7 +42,7 @@ class Mantenimiento(Base):
 
     def delete_mantenimiento(self, id):
         session.query(Mantenimiento).filter(Mantenimiento.id_mantenimiento == id).delete()
-        session.commit()
+        session.commit() """
 
 
 class Huerto(Base):
@@ -57,8 +54,6 @@ class Huerto(Base):
     fecha_plantacion = Column(Date, nullable=False)
     created_at = Column(Date, nullable=False, default=datetime.date.today())
     plantas = relationship("Planta", back_populates="huertos", cascade="all, delete-orphan", passive_deletes=True)
-    # Establecemos la relacion con la planta
-    # TODO https://realpython.com/python-sqlite-sqlalchemy/#foreignkey-creates-a-connection
 
     def get_huertos(self):
         return session.query(Huerto).all()        
@@ -97,9 +92,6 @@ class Planta(Base):
     huerto_id = Column(Integer, ForeignKey("Huerto.id", ondelete="cascade"), nullable=False)
     huertos = relationship("Huerto", back_populates="plantas")
 
-    #mantenimiento = relationship(Mantenimiento, cascade='all, delete-orphan')
-
-
     def __repr__(self):
         return self.nombre, self.fecha_plantacion
 
@@ -126,7 +118,6 @@ class Planta(Base):
 
     def delete_planta(self, id):
         session.query(Planta).filter(Planta.id == id).delete()
-        #session.delete(planta)
         session.commit()
 
 
@@ -140,10 +131,6 @@ class DatabaseUtils:
 
 
 Base.metadata.create_all(engine)
-
-
-
-#Base.metadata.create_all(engine) 
 
  # Para crear nuevo elemento:
 #nueva_fila = Planta(nombre="Nombre de la planta", anotaciones="Bla, bla, bla", fecha_plantacion=datetime(2020, 2, 21).date(), created_at=datetime.today())

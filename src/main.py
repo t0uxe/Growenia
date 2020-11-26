@@ -161,7 +161,7 @@ class MainWindow:
         fecha = datetime.date(fecha.year, fecha.month+1, fecha.day)
 
         if not nombre.get_text() or not descripcion.get_text():
-            self.mensaje("Faltan datos", "Por favor, rellene los campos.", "gtk-dialog-error")
+            self.mostrar_mensaje_faltan_datos()
         else:
             huerto = Huerto(nombre=nombre.get_text(), descripcion=descripcion.get_text(), fecha_plantacion=fecha)
             huerto.add_huerto()
@@ -249,7 +249,7 @@ class MainWindow:
         fecha_plantacion = datetime.date(fecha_plantacion.year, fecha_plantacion.month+1, fecha_plantacion.day)
 
         if not nombre or not descripcion:
-            self.mensaje("Faltan datos", "Por favor, rellene los campos.", "gtk-dialog-error")
+            self.mostrar_mensaje_faltan_datos()
         else:
             created_at = self.date_cal_modificar.get_text().split('-')
             dia = int(created_at[2])
@@ -362,8 +362,10 @@ class MainWindow:
         else:
             self.mensaje("Error", "Tiene que seleccionar una fila para modificar.", "gtk-dialog-error")
 
-    def modificar_planta(self, button):
+    def mostrar_mensaje_faltan_datos(self):
+        self.mensaje("Faltan datos", "Por favor, rellene los campos.", "gtk-dialog-error")
 
+    def modificar_planta(self, button):
         id = int(self.txt_id_planta_modificar.get_text())
         nombre = self.txt_modificar_nombre_planta.get_text()
         anotaciones = self.txt_modificar_anotaciones_planta.get_text()
@@ -372,7 +374,7 @@ class MainWindow:
         huerto_id = int(self.txt_huerto_id_modificar_planta.get_text())
 
         if not nombre or not anotaciones:
-            self.mensaje("Faltan datos", "Por favor, rellene los campos.", "gtk-dialog-error")
+            self.mostrar_mensaje_faltan_datos()
         else:
             created_at = self.txt_date_cal_modificar_planta.get_text().split('-')
             dia = int(created_at[2])
