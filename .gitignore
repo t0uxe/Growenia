@@ -3,3 +3,4 @@ Notas.txt
 *.pyc
 .buildconfig
 *.db
+.venv
